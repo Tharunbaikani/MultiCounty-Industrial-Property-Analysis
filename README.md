@@ -1,11 +1,5 @@
 # 🚀 Starboard AI - Multi-County Industrial Property Analysis
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/React-18+-blue.svg)](https://reactjs.org)
-[![Next.js](https://img.shields.io/badge/Next.js-13+-black.svg)](https://nextjs.org)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
 > **Advanced AI-Powered Industrial Property Comparable Analysis with Real Data**
 
 ## 🏭 Overview
@@ -92,7 +86,7 @@ frontend/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/starboard-ai.git
+git clone https://github.com/Tharunbaikani/Starboard-AI.git
 cd starboard-ai
 ```
 
@@ -255,34 +249,12 @@ npm run build
 npm start
 ```
 
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
 ### Development Setup
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/amazing-feature`
 3. Commit your changes: `git commit -m 'Add amazing feature'`
 4. Push to the branch: `git push origin feature/amazing-feature`
 5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **ATTOM Data Solutions** for professional real estate data
-- **OpenAI** for AI-powered analysis capabilities
-- **FastAPI** team for the excellent web framework
-- **Next.js** team for the React framework
-
-## 📞 Contact
-
-- **Project Link**: [https://github.com/yourusername/starboard-ai](https://github.com/yourusername/starboard-ai)
-- **Issues**: [https://github.com/yourusername/starboard-ai/issues](https://github.com/yourusername/starboard-ai/issues)
-
----
 
 ## 🎯 Key Differentiators
 
