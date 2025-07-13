@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+pydantic
+sqlalchemy
+requests
+aiohttp
+python-multipart
+geopy
+pandas
+numpy
+python-dotenv
+httpx
+asyncio-throttle
+openai
+scikit-learn
+scipy
+asyncio-throttle 
