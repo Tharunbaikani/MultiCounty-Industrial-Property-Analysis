@@ -124,12 +124,14 @@ class ExtractionResult(BaseModel):
 
 
 class SimilarityFactors(BaseModel):
-    """Factors used to calculate property similarity"""
-    location_weight: float = 0.3
-    size_weight: float = 0.25
-    age_weight: float = 0.2
-    zoning_weight: float = 0.15
-    value_weight: float = 0.1
+    """Factors used to calculate property similarity, now including sale price."""
+    # Updated weights - sale price gets highest priority
+    sale_price_weight: float = 0.35  # Highest weight for sale price
+    size_weight: float = 0.25        # Second highest for building size
+    value_weight: float = 0.20       # Third for assessed/market value
+    location_weight: float = 0.10    # Reduced from 0.25 to 0.10
+    age_weight: float = 0.05         # Reduced from 0.15 to 0.05
+    zoning_weight: float = 0.05      # Reduced from 0.15 to 0.05
     
     # Distance thresholds
     max_distance_miles: float = 10.0

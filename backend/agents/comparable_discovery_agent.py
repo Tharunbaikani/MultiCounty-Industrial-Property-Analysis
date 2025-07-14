@@ -56,7 +56,10 @@ class IntelligentComparableDiscoveryAgent:
         # Sort by similarity score (descending)
         scored_properties.sort(key=lambda x: x.similarity_score, reverse=True)
         
-        # Return top results
+        # Filter to only those with a sale price
+        # scored_properties = [c for c in scored_properties if c.property.sale_price is not None]
+        
+        # Return top results (top 10 with sale price)
         results = scored_properties[:max_results]
         
         logger.info(f"Found {len(results)} comparable properties for {target_property.id}")
@@ -522,6 +525,7 @@ class IntelligentComparableDiscoveryAgent:
         age_score = await self.calculate_age_similarity(target_property, candidate)
         zoning_score = await self.calculate_zoning_similarity(target_property, candidate)
         value_score = await self.calculate_value_similarity(target_property, candidate)
+        sale_price_score = await self.calculate_sale_price_similarity(target_property, candidate)
         
         # Weight factors based on SimilarityFactors
         factors = self.similarity_factors
@@ -532,7 +536,8 @@ class IntelligentComparableDiscoveryAgent:
             size_score * factors.size_weight +
             age_score * factors.age_weight +
             zoning_score * factors.zoning_weight +
-            value_score * factors.value_weight
+            value_score * factors.value_weight +
+            sale_price_score * factors.sale_price_weight
         )
         
         # Prepare similarity factors breakdown
@@ -541,7 +546,8 @@ class IntelligentComparableDiscoveryAgent:
             "size": size_score,
             "age": age_score,
             "zoning": zoning_score,
-            "value": value_score
+            "value": value_score,
+            "sale_price": sale_price_score
         }
         
         # Calculate confidence score based on data completeness
@@ -649,6 +655,22 @@ class IntelligentComparableDiscoveryAgent:
             return 1.0
         else:
             # Linear decay based on difference
+            return max(0.0, ratio)
+    
+    async def calculate_sale_price_similarity(self, target: PropertyResponse, candidate: PropertyResponse) -> float:
+        """Calculate sale price similarity score based on last sale amount (0-1)"""
+        if not target.sale_price or not candidate.sale_price:
+            return 0.5  # Neutral score if data missing
+        
+        larger = max(target.sale_price, candidate.sale_price)
+        smaller = min(target.sale_price, candidate.sale_price)
+        if larger == 0:
+            return 0.0
+        ratio = smaller / larger
+        tolerance = 0.3  # 30% tolerance, similar to value
+        if ratio >= (1 - tolerance):
+            return 1.0
+        else:
             return max(0.0, ratio)
     
     async def calculate_distance(self, target: PropertyResponse, 

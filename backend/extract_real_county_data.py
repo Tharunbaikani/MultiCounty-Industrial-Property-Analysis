@@ -12,7 +12,11 @@ import os
 from datetime import datetime
 from typing import Dict, List, Optional
 import logging
+from dotenv import load_dotenv
 from database import SessionLocal, Property, init_db
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -31,103 +35,24 @@ class EnhancedRealPropertyExtractor:
         # Enhanced ZIP code to county mapping
         self.zip_to_county = {
             # Cook County, IL (Chicago)
-            "60601": "cook", "60602": "cook", "60603": "cook", "60604": "cook", 
-            "60605": "cook", "60606": "cook", "60607": "cook", "60608": "cook",
-            "60609": "cook", "60610": "cook", "60611": "cook", "60612": "cook",
-            "60613": "cook", "60614": "cook", "60615": "cook", "60616": "cook",
-            "60617": "cook", "60618": "cook", "60619": "cook", "60620": "cook",
-            "60621": "cook", "60622": "cook", "60623": "cook", "60624": "cook",
-            "60625": "cook", "60626": "cook", "60627": "cook", "60628": "cook",
-            "60629": "cook", "60630": "cook", "60631": "cook", "60632": "cook",
-            "60633": "cook", "60634": "cook", "60635": "cook", "60636": "cook",
-            "60637": "cook", "60638": "cook", "60639": "cook", "60640": "cook",
-            "60641": "cook", "60642": "cook", "60643": "cook", "60644": "cook",
-            "60645": "cook", "60646": "cook", "60647": "cook", "60648": "cook",
-            "60649": "cook", "60650": "cook", "60651": "cook", "60652": "cook",
-            "60653": "cook", "60654": "cook", "60655": "cook", "60656": "cook",
-            "60657": "cook", "60658": "cook", "60659": "cook", "60660": "cook",
+            "60601": "cook", "60602": "cook", "60603": "cook", "60604": "cook", "60605": "cook", "60606": "cook", "60607": "cook", "60608": "cook", "60609": "cook", "60610": "cook", "60611": "cook", "60612": "cook", "60613": "cook", "60614": "cook", "60615": "cook", "60616": "cook", "60617": "cook", "60618": "cook", "60619": "cook", "60620": "cook", "60621": "cook", "60622": "cook", "60623": "cook", "60624": "cook", "60625": "cook", "60626": "cook", "60627": "cook", "60628": "cook", "60629": "cook", "60630": "cook", "60631": "cook", "60632": "cook", "60633": "cook", "60634": "cook", "60635": "cook", "60636": "cook", "60637": "cook", "60638": "cook", "60639": "cook", "60640": "cook", "60641": "cook", "60642": "cook", "60643": "cook", "60644": "cook", "60645": "cook", "60646": "cook", "60647": "cook", "60648": "cook", "60649": "cook", "60650": "cook", "60651": "cook", "60652": "cook", "60653": "cook", "60654": "cook", "60655": "cook", "60656": "cook", "60657": "cook", "60658": "cook", "60659": "cook", "60660": "cook",
             
             # Dallas County, TX
-            "75201": "dallas", "75202": "dallas", "75203": "dallas", "75204": "dallas",
-            "75205": "dallas", "75206": "dallas", "75207": "dallas", "75208": "dallas",
-            "75209": "dallas", "75210": "dallas", "75211": "dallas", "75212": "dallas",
-            "75213": "dallas", "75214": "dallas", "75215": "dallas", "75216": "dallas",
-            "75217": "dallas", "75218": "dallas", "75219": "dallas", "75220": "dallas",
-            "75221": "dallas", "75222": "dallas", "75223": "dallas", "75224": "dallas",
-            "75225": "dallas", "75226": "dallas", "75227": "dallas", "75228": "dallas",
-            "75229": "dallas", "75230": "dallas", "75231": "dallas", "75232": "dallas",
-            "75233": "dallas", "75234": "dallas", "75235": "dallas", "75236": "dallas",
-            "75237": "dallas", "75238": "dallas", "75239": "dallas", "75240": "dallas",
-            "75241": "dallas", "75242": "dallas", "75243": "dallas", "75244": "dallas",
-            "75245": "dallas", "75246": "dallas", "75247": "dallas", "75248": "dallas",
-            "75249": "dallas", "75250": "dallas", "75251": "dallas", "75252": "dallas",
-            "75253": "dallas", "75254": "dallas", "75255": "dallas", "75256": "dallas",
-            "75257": "dallas", "75258": "dallas", "75259": "dallas", "75260": "dallas",
-            "75261": "dallas", "75262": "dallas", "75263": "dallas", "75264": "dallas",
-            "75265": "dallas", "75266": "dallas", "75267": "dallas", "75268": "dallas",
-            "75269": "dallas", "75270": "dallas", "75271": "dallas", "75272": "dallas",
-            "75273": "dallas", "75274": "dallas", "75275": "dallas", "75276": "dallas",
-            "75277": "dallas", "75278": "dallas", "75279": "dallas", "75280": "dallas",
-            "75281": "dallas", "75282": "dallas", "75283": "dallas", "75284": "dallas",
-            "75285": "dallas", "75286": "dallas", "75287": "dallas", "75288": "dallas",
-            "75289": "dallas", "75290": "dallas", "75291": "dallas", "75292": "dallas",
-            "75293": "dallas", "75294": "dallas", "75295": "dallas", "75296": "dallas",
-            "75297": "dallas", "75298": "dallas", "75299": "dallas",
+            "75201": "dallas", "75202": "dallas", "75203": "dallas", "75204": "dallas", "75205": "dallas", "75206": "dallas", "75207": "dallas", "75208": "dallas", "75209": "dallas", "75210": "dallas", "75211": "dallas", "75212": "dallas", "75213": "dallas", "75214": "dallas", "75215": "dallas", "75216": "dallas", "75217": "dallas", "75218": "dallas", "75219": "dallas", "75220": "dallas", "75221": "dallas", "75222": "dallas", "75223": "dallas", "75224": "dallas", "75225": "dallas", "75226": "dallas", "75227": "dallas", "75228": "dallas", "75229": "dallas", "75230": "dallas", "75231": "dallas", "75232": "dallas", "75233": "dallas", "75234": "dallas", "75235": "dallas", "75236": "dallas", "75237": "dallas", "75238": "dallas", "75239": "dallas", "75240": "dallas", "75241": "dallas", "75242": "dallas", "75243": "dallas", "75244": "dallas", "75245": "dallas", "75246": "dallas", "75247": "dallas", "75248": "dallas", "75249": "dallas", "75250": "dallas", "75251": "dallas", "75252": "dallas", "75253": "dallas", "75254": "dallas", "75255": "dallas", "75256": "dallas", "75257": "dallas", "75258": "dallas", "75259": "dallas", "75260": "dallas", "75261": "dallas", "75262": "dallas", "75263": "dallas", "75264": "dallas", "75265": "dallas", "75266": "dallas", "75267": "dallas", "75268": "dallas", "75269": "dallas", "75270": "dallas", "75271": "dallas", "75272": "dallas", "75273": "dallas", "75274": "dallas", "75275": "dallas", "75276": "dallas", "75277": "dallas", "75278": "dallas", "75279": "dallas", "75280": "dallas", "75281": "dallas", "75282": "dallas", "75283": "dallas", "75284": "dallas", "75285": "dallas", "75286": "dallas", "75287": "dallas", "75288": "dallas", "75289": "dallas", "75290": "dallas", "75291": "dallas", "75292": "dallas", "75293": "dallas", "75294": "dallas", "75295": "dallas", "75296": "dallas", "75297": "dallas", "75298": "dallas", "75299": "dallas",
             
             # Los Angeles County, CA
-            "90001": "los_angeles", "90002": "los_angeles", "90003": "los_angeles",
-            "90004": "los_angeles", "90005": "los_angeles", "90006": "los_angeles",
-            "90007": "los_angeles", "90008": "los_angeles", "90009": "los_angeles",
-            "90010": "los_angeles", "90011": "los_angeles", "90012": "los_angeles",
-            "90013": "los_angeles", "90014": "los_angeles", "90015": "los_angeles",
-            "90016": "los_angeles", "90017": "los_angeles", "90018": "los_angeles",
-            "90019": "los_angeles", "90020": "los_angeles", "90021": "los_angeles",
-            "90022": "los_angeles", "90023": "los_angeles", "90024": "los_angeles",
-            "90025": "los_angeles", "90026": "los_angeles", "90027": "los_angeles",
-            "90028": "los_angeles", "90029": "los_angeles", "90030": "los_angeles",
-            "90031": "los_angeles", "90032": "los_angeles", "90033": "los_angeles",
-            "90034": "los_angeles", "90035": "los_angeles", "90036": "los_angeles",
-            "90037": "los_angeles", "90038": "los_angeles", "90039": "los_angeles",
-            "90040": "los_angeles", "90041": "los_angeles", "90042": "los_angeles",
-            "90043": "los_angeles", "90044": "los_angeles", "90045": "los_angeles",
-            "90046": "los_angeles", "90047": "los_angeles", "90048": "los_angeles",
-            "90049": "los_angeles", "90050": "los_angeles", "90051": "los_angeles",
-            "90052": "los_angeles", "90053": "los_angeles", "90054": "los_angeles",
-            "90055": "los_angeles", "90056": "los_angeles", "90057": "los_angeles",
-            "90058": "los_angeles", "90059": "los_angeles", "90060": "los_angeles",
-            "90061": "los_angeles", "90062": "los_angeles", "90063": "los_angeles",
-            "90064": "los_angeles", "90065": "los_angeles", "90066": "los_angeles",
-            "90067": "los_angeles", "90068": "los_angeles", "90069": "los_angeles",
-            "90070": "los_angeles", "90071": "los_angeles", "90072": "los_angeles",
-            "90073": "los_angeles", "90074": "los_angeles", "90075": "los_angeles",
-            "90076": "los_angeles", "90077": "los_angeles", "90078": "los_angeles",
-            "90079": "los_angeles", "90080": "los_angeles", "90081": "los_angeles",
-            "90082": "los_angeles", "90083": "los_angeles", "90084": "los_angeles",
-            "90086": "los_angeles", "90087": "los_angeles", "90088": "los_angeles",
-            "90089": "los_angeles", "90090": "los_angeles", "90091": "los_angeles",
-            "90093": "los_angeles", "90094": "los_angeles", "90095": "los_angeles",
-            "90096": "los_angeles", "90097": "los_angeles", "90098": "los_angeles",
-            "90099": "los_angeles",
+            "90001": "los_angeles", "90002": "los_angeles", "90003": "los_angeles", "90004": "los_angeles", "90005": "los_angeles", "90006": "los_angeles", "90007": "los_angeles", "90008": "los_angeles", "90009": "los_angeles", "90010": "los_angeles", "90011": "los_angeles", "90012": "los_angeles", "90013": "los_angeles", "90014": "los_angeles", "90015": "los_angeles", "90016": "los_angeles", "90017": "los_angeles", "90018": "los_angeles", "90019": "los_angeles", "90020": "los_angeles", "90021": "los_angeles", "90022": "los_angeles", "90023": "los_angeles", "90024": "los_angeles", "90025": "los_angeles", "90026": "los_angeles", "90027": "los_angeles", "90028": "los_angeles", "90029": "los_angeles", "90030": "los_angeles", "90031": "los_angeles", "90032": "los_angeles", "90033": "los_angeles", "90034": "los_angeles", "90035": "los_angeles", "90036": "los_angeles", "90037": "los_angeles", "90038": "los_angeles", "90039": "los_angeles", "90040": "los_angeles", "90041": "los_angeles", "90042": "los_angeles", "90043": "los_angeles", "90044": "los_angeles", "90045": "los_angeles", "90046": "los_angeles", "90047": "los_angeles", "90048": "los_angeles", "90049": "los_angeles", "90050": "los_angeles", "90051": "los_angeles", "90052": "los_angeles", "90053": "los_angeles", "90054": "los_angeles", "90055": "los_angeles", "90056": "los_angeles", "90057": "los_angeles", "90058": "los_angeles", "90059": "los_angeles", "90060": "los_angeles", "90061": "los_angeles", "90062": "los_angeles", "90063": "los_angeles", "90064": "los_angeles", "90065": "los_angeles", "90066": "los_angeles", "90067": "los_angeles", "90068": "los_angeles", "90069": "los_angeles", "90070": "los_angeles", "90071": "los_angeles", "90072": "los_angeles", "90073": "los_angeles", "90074": "los_angeles", "90075": "los_angeles", "90076": "los_angeles", "90077": "los_angeles", "90078": "los_angeles", "90079": "los_angeles", "90080": "los_angeles", "90081": "los_angeles", "90082": "los_angeles", "90083": "los_angeles", "90084": "los_angeles", "90086": "los_angeles", "90087": "los_angeles", "90088": "los_angeles", "90089": "los_angeles", "90090": "los_angeles", "90091": "los_angeles", "90093": "los_angeles", "90094": "los_angeles", "90095": "los_angeles", "90096": "los_angeles", "90097": "los_angeles", "90098": "los_angeles", "90099": "los_angeles",
         }
         
         # Industrial ZIP codes prioritized by market activity
         self.industrial_zip_codes = [
-            # Chicago industrial corridors
-            "60608", "60609", "60632", "60638", "60804", "60827", "60641", "60639",
-            "60634", "60707", "60712", "60018", "60007", "60176", "60106", "60164",
-            
-            # Dallas industrial areas
-            "75207", "75212", "75220", "75247", "75248", "75261", "75050", "75051",
-            "75052", "75053", "75054", "75056", "75057", "75060", "75061", "75062",
-            "75063", "75065", "75067", "75068", "75069", "75070", "75071", "75074",
-            "75075", "75076", "75077", "75078", "75080", "75081", "75082", "75083",
-            
-            # LA industrial zones
-            "90021", "90058", "90040", "90255", "90280", "90706", "90220", "90221",
-            "90222", "90223", "90224", "90230", "90232", "90240", "90241", "90242",
-            "90245", "90248", "90249", "90250", "90254", "90260", "90262", "90263",
-            "90270", "90272", "90274", "90275", "90277", "90278", "90290", "90291",
-        ]
+            # --- CHICAGO INDUSTRIAL ZIP CODES (Expanded) ---
+            "60601", "60602", "60603", "60604", "60605", "60606", "60607", "60608", "60609", "60610", "60611", "60612", "60613", "60614", "60615", "60616", "60617", "60618", "60619", "60620", "60621", "60622", "60623", "60624", "60625", "60626", "60627", "60628", "60629", "60630", "60631", "60632", "60633", "60634", "60635", "60636", "60637", "60638", "60639", "60640", "60641", "60642", "60643", "60644", "60645", "60646", "60647", "60648", "60649", "60650", "60651", "60652", "60653", "60654", "60655", "60656", "60657", "60658", "60659", "60660", "60661", "60707", "60712", "60804", "60827", "60007", "60018", "60106", "60131", "60176", "60301", "60302", "60304", "60305", "60402", "60406", "60409", "60411", "60415", "60419", "60426", "60428", "60429", "60430", "60438", "60439", "60445", "60453", "60455", "60459", "60462", "60463", "60469", "60472", "60473", "60476", "60482", "60501", "60513", "60521", "60525", "60526", "60534", "60546", "60558",
+            # --- DALLAS INDUSTRIAL ZIP CODES (Expanded) ---
+            "75201", "75202", "75203", "75204", "75205", "75206", "75207", "75208", "75209", "75210", "75211", "75212", "75214", "75215", "75216", "75217", "75218", "75219", "75220", "75221", "75222", "75223", "75224", "75225", "75226", "75227", "75228", "75229", "75230", "75231", "75232", "75233", "75234", "75235", "75236", "75237", "75238", "75239", "75240", "75241", "75242", "75243", "75244", "75245", "75246", "75247", "75248", "75249", "75250", "75251", "75252", "75253", "75254", "75255", "75256", "75257", "75258", "75259", "75260", "75261", "75262", "75263", "75264", "75265", "75266", "75267", "75268", "75269", "75270", "75271", "75272", "75273", "75274", "75275", "75276", "75277", "75278", "75279", "75280", "75281", "75282", "75283", "75284", "75285", "75286", "75287", "75288", "75289", "75290", "75291", "75292", "75293", "75294", "75295", "75296", "75297", "75298", "75299", "75001", "75006", "75007", "75019", "75038", "75039", "75040", "75041", "75042", "75043", "75044", "75048", "75050", "75051", "75052", "75060", "75061", "75062", "75063", "75080", "75081", "75082", "75088", "75089", "75093", "75098",
+            # --- LOS ANGELES INDUSTRIAL ZIP CODES (Expanded) ---
+            "90001", "90002", "90003", "90004", "90005", "90006", "90007", "90008", "90009", "90010", "90011", "90012", "90013", "90014", "90015", "90016", "90017", "90018", "90019", "90020", "90021", "90022", "90023", "90024", "90025", "90026", "90027", "90028", "90029", "90030", "90031", "90032", "90033", "90034", "90035", "90036", "90037", "90038", "90039", "90040", "90041", "90042", "90043", "90044", "90045", "90046", "90047", "90048", "90049", "90050", "90051", "90052", "90053", "90054", "90055", "90056", "90057", "90058", "90059", "90060", "90061", "90062", "90063", "90064", "90065", "90066", "90067", "90068", "90069", "90070", "90071", "90072", "90073", "90074", "90075", "90076", "90077", "90078", "90079", "90080", "90081", "90082", "90083", "90084", "90086", "90087", "90088", "90089", "90090", "90091", "90093", "90094", "90095", "90096", "90097", "90098", "90099", "90201", "90202", "90210", "90211", "90212", "90220", "90221", "90222", "90223", "90224", "90230", "90231", "90232", "90233", "90240", "90241", "90242", "90245", "90247", "90248", "90249", "90250", "90254", "90255", "90260", "90261", "90262", "90263", "90264", "90265", "90266", "90267", "90270", "90272", "90274", "90275", "90277", "90278", "90280", "90290", "90291", "90292", "90293", "90294", "90295", "90296", "90401", "90402", "90403", "90404", "90405", "90501", "90502", "90503", "90504", "90505", "90506", "90710", "90712", "90717", "90723", "90731", "90732", "90744", "90802", "90805", "90806", "90807", "90808", "90810", "90813", "90815"
+        ]  # END expanded ZIP codes for Chicago, Dallas, and LA only
         
     async def __aenter__(self):
         # Create SSL context for problematic certificates
@@ -525,18 +450,8 @@ async def main():
     # Initialize database
     await init_db()
     
-    # Clear existing data
-    print("\n🧹 Clearing existing data...")
-    db = SessionLocal()
-    try:
-        deleted_count = db.query(Property).delete()
-        db.commit()
-        print(f"✅ Cleared {deleted_count} existing properties")
-    except Exception as e:
-        db.rollback()
-        print(f"❌ Error clearing data: {e}")
-    finally:
-        db.close()
+    # Extraction limit increased
+    # extraction_limit = 10000
     
     total_extracted = 0
     
