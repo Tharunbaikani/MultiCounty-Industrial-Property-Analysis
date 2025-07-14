@@ -108,6 +108,14 @@ cp env.template .env
 # Edit .env file with your API keys:
 # ATTOMDATA_API_KEY=your_attom_api_key
 # OPENAI_API_KEY=your_openai_api_key
+**Load Database with Property Data**
+   ```bash
+   # Initial data extraction (up to 10,000 properties)
+   python extract_real_county_data.py
+   
+   # For scheduled updates (runs every 24 hours)
+   python scheduled_extraction.py
+   ```
 
 # Start the backend server
 uvicorn app:main --reload --host 0.0.0.0 --port 8000
