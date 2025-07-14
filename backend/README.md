@@ -92,7 +92,28 @@ requirements.txt                # Production dependencies
    OPENAI_API_KEY=your_openai_api_key
    ```
 
-4. **Run Server**
+4. **Load Database with Property Data**
+   ```bash
+   # Initial data extraction (up to 10,000 properties)
+   python extract_real_county_data.py
+   
+   # For scheduled updates (runs every 24 hours)
+   python scheduled_extraction.py
+   ```
+   
+   **Data Sources:**
+   - **ATTOM API**: Professional real estate data
+   - **Coverage**: Chicago (Cook), Dallas, Los Angeles counties
+   - **Property Types**: Industrial, Manufacturing, Warehouse
+   - **Zoning Codes**: M-1, M-2, I-1, I-2, I-3 classifications
+   
+   **Extraction Features:**
+   - ✅ **Update/Insert Logic**: Preserves existing data, only adds new properties
+   - ✅ **Sale Price Priority**: Enhanced similarity scoring for sale price data
+   - ✅ **Comprehensive Coverage**: 400+ ZIP codes across major industrial markets
+   - ✅ **Quality Validation**: AI-powered data quality scoring and outlier detection
+
+5. **Run Server**
    ```bash
    uvicorn app:main --reload --host 0.0.0.0 --port 8000
    ```
@@ -218,6 +239,4 @@ different_zoning + industrial_classification + size_factor
 - **Price Per Sq Ft Range**: $26-$60 per sq ft
 - **Geographic Distribution**: National coverage with county focus
 
----
-
- 
+-- 
