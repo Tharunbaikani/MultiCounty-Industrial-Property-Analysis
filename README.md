@@ -1,4 +1,4 @@
-# 🚀 Starboard AI - Multi-County Industrial Property Analysis
+#  Multi-County Industrial Property Analysis
 
 > **Advanced AI-Powered Industrial Property Comparable Analysis with Real Data**
 
